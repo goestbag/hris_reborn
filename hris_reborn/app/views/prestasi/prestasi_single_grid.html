@@ -1,0 +1,245 @@
+<h2>Penilaian Prestasi Pelaksana</h2>
+<div ng-controller="PrestasiPrestasiCtrl as showCase">
+				<span style=“font-weight: bold;”>Pilih Periode Penilaian Prestasi </span>
+				<select ng-model="selectedbulanPrestasi" ng-options="c as c.periode for c in bulanPrestasi"></select>
+				<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#isiPenilaian" ng-href="#/">Isi Penilaian Prestasi <span class="glyphicon glyphicon-edit"></span></button>
+				<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#isiPenilaian2" ng-href="#/">Isi Penilaian Prestasi 2<span class="glyphicon glyphicon-edit"></span></button>
+				<!--
+				<p class="text-danger">You clicked on: <strong>{{ showCase.message }}</strong></p>
+			-->
+	<div class="row">
+		<div class="col-sm-12">
+			<table datatable="" dt-options="showCase.dtOptions1" dt-columns="showCase.dtColumns1" class="table-striped row-border hover"></table>
+			<!--
+			<table datatable="ng" dt-column-defs="showCase.dtColumnDefs" class="table-striped row-border hover">
+				<thead>
+			    	<tr>
+			            <th>No.Reg</th>
+			            <th>Nama</th>
+			            <th>Jabatan</th>
+			            <th>Departemen</th>
+			            <th>Tgl Penilaian</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr ng-repeat="prestasi in showCase.prestasi">
+			            <td>{{ prestasi.nomor }}</td>
+			            <td>{{ prestasi.nama }}</td>
+			            <td>{{ prestasi.jabatan }}</td>
+			            <td>{{ prestasi.departemen }}</td>
+			            <td>{{ prestasi.tgl_penilaian }}</td>
+			        </tr>
+			    </tbody>
+			</table>
+			-->
+		</div>
+		<!--
+		<div class="col-sm-3">
+			<p><b>Aspek Penilaian</b>.</p> 
+			<table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="table-striped row-border hover">
+				<thead>
+			    	<tr>
+			            <th>Aspek Penilaian</th>
+			            <th>Skor</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr ng-repeat="aspek_prestasi in showCase.aspek_prestasi | filter:{id_tr_prestasi_pelaksana:showCase.message}">
+			            <td>{{ aspek_prestasi.aspek_penilaian }}</td>
+			            <td>{{ aspek_prestasi.skor }}</td>
+			        </tr>
+			    </tbody>
+			</table>
+		</div>
+		-->
+	</div>
+	
+	<div id="isiPenilaian" class="modal fade modal-wide" role="dialog">
+		<div class="modal-dialog modal-lg">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title">Penilaian Prestasi Pelaksana</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		<div class="row">
+		      			<div class="col-sm-8">
+							<table datatable="" dt-options="showCase.dtOptions1" dt-columns="showCase.dtColumns1" class="table-striped row-border hover"></table>
+						</div>
+						<div class="col-sm-4">
+							<form class="form-horizontal" role="form" ng-submit="showCase.addPerson()">
+								<table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="table-striped row-border hover">
+									<thead>
+										<tr>
+											<div class="row">
+												<div class="row">
+													<div class="col-sm-10">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Aspek Penilaian</label>
+															<div class="col-sm-8">
+																<select class="form-control input-sm" ng-model="selectedaspekPenilaian" ng-options="c as c.aspek_penilaian for c in aspekPenilaian"></select>
+															</div>												
+														</div>
+													</div>
+ 												</div>
+												<div class="row">
+													<div class="col-sm-10">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Skor</label>
+															<div class="col-sm-8">
+									                            <input class="form-control input-sm" name="skor" ng-model="showCase.person2Add.id" value="" type="number" min="1" max="5">
+									                        </div>
+														</div>
+													</div>
+													<div class="col-sm-2">
+														<div class="form-group">
+									                        <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span></button>
+									                    </div>
+													</div>
+												</div>
+											</div>
+										</tr>
+							    		<tr>
+							            	<th>Aspek Penilaian</th>
+							            	<th>Skor</th>
+							            	<th>Action</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <tr ng-repeat="aspek_prestasi in showCase.aspek_prestasi | filter:{id_tr_prestasi_pelaksana:showCase.message}">
+								            <td>{{ aspek_prestasi.aspek_penilaian }}</td>
+								            <td>{{ aspek_prestasi.skor }}</td>
+								            <td>
+							                    <div class="btn-group" role="group" aria-label="action">
+													<button id="btnUbah" type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+														<span class="glyphicon glyphicon-edit"></span>
+													</button>
+													<button id="btnHapus" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+												</div>
+							                </td>
+								        </tr>
+								    </tbody>
+								</table>
+							</form>
+						</div>
+		      		</div>
+			  	</div>
+			   	<div class="modal-footer">
+			    	<button type="button" class="btn btn-success" data-dismiss="modal">Simpan</button>
+			    	<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+			    </div>
+			</div>
+	  	</div>
+	</div>	
+
+
+	<div id="isiPenilaian2" class="modal fade modal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+		    	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title">Penilaian Prestasi Pelaksana</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		<div class="row">
+			      		<div class="col-sm-6">
+			      			<form class="form-horizontal" role="form">
+			      				<div class="form-group">
+					      			<label class="col-sm-4 control-label">No. Register</label>
+					      			<div class="col-sm-8">
+					      				<select class="form-control input-sm" ng-model="selectednoReg" ng-options="c as c.nomor for c in noReg"></select>
+					      			</div>												
+					      		</div>
+					      		<div class="form-group">
+					      			<label class="col-sm-4 control-label">Nama</label>
+					      			<div class="col-sm-8">
+					      				<input class="form-control" id="disabledInput" type="text" placeholder={{selectednoReg.nama}} disabled>
+					      			</div>												
+					      		</div>
+					      		<div class="form-group">
+					      			<label class="col-sm-4 control-label">Jabatan</label>
+					      			<div class="col-sm-8">
+					      				<input class="form-control" id="disabledInput" type="text" placeholder={{selectednoReg.jabatan}} disabled>
+					      			</div>												
+					      		</div>
+					      		<div class="form-group">
+					      			<label class="col-sm-4 control-label">Departemen</label>
+					      			<div class="col-sm-8">
+					      				<input class="form-control" id="disabledInput" type="text" placeholder={{selectednoReg.departemen}} disabled>
+					      			</div>												
+					      		</div>
+			      			</form>
+			      		</div>
+			      		<div class="col-sm-6">
+							<form class="form-horizontal" role="form" ng-submit="showCase.addPerson()">
+								<table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="table-striped row-border hover">
+									<thead>
+										<tr>
+											<div class="row">
+												<div class="row">
+													<div class="col-sm-10">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Aspek Penilaian</label>
+															<div class="col-sm-8">
+																<select class="form-control input-sm" ng-model="selectedaspekPenilaian" ng-options="c as c.aspek_penilaian for c in aspekPenilaian"></select>
+															</div>												
+														</div>
+													</div>
+ 												</div>
+												<div class="row">
+													<div class="col-sm-10">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Skor</label>
+															<div class="col-sm-8">
+									                            <input class="form-control input-sm" name="skor" ng-model="showCase.person2Add.id" value="" type="number" min="1" max="5">
+									                        </div>
+														</div>
+													</div>
+													<div class="col-sm-2">
+														<div class="form-group">
+									                        <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span></button>
+									                    </div>
+													</div>
+												</div>
+											</div>
+										</tr>
+							    		<tr>
+							            	<th>Aspek Penilaian</th>
+							            	<th>Skor</th>
+							            	<th>Action</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <tr ng-repeat="aspek_prestasi in showCase.aspek_prestasi | filter:{id_tr_prestasi_pelaksana:selectednoReg.id_tr_prestasi_pelaksana}">
+								            <td>{{ aspek_prestasi.aspek_penilaian }}</td>
+								            <td>{{ aspek_prestasi.skor }}</td>
+								            <td>
+							                    <div class="btn-group" role="group" aria-label="action">
+													<button id="btnUbah" type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+														<span class="glyphicon glyphicon-edit"></span>
+													</button>
+													<button id="btnHapus" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+												</div>
+							                </td>
+								        </tr>
+								    </tbody>
+								</table>
+							</form>
+			      		</div>
+			      	</div>
+			  	</div>
+			   	<div class="modal-footer">
+			    	<button type="button" class="btn btn-success" data-dismiss="modal">Simpan</button>
+			    	<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+			    </div>
+			</div>
+	  	</div>
+	</div>	
+			    
+</div>

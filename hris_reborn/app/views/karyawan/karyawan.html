@@ -1,0 +1,82 @@
+<div ng-controller="KaryawanKaryawanCtrl as showCase">
+<table width="100%">
+	<tr>
+		<td><h2>Data Karyawan</h2></td>
+		<td align="right">
+			<a href="#/karyawan/tambah">
+				<button type="button" class="btn btn-primary btn-sm" id="btnTambah">
+	    		<span class="glyphicon glyphicon-plus"></span> Tambah
+	    		</button>
+    		</a>
+    	</td>
+	</tr>
+</table>
+	<table class="table table-responsive table-condensed table-nonfluid">
+
+		<!--
+		<tr> 
+			<td>
+				<span style=“font-weight: bold;”>Pilih Periode Penilaian Prestasi </span>
+				<select ng-model="selectedTestAccount" ng-options="c as c.periode for c in testAccounts"></select>
+				<button class="btn btn-sm btn-warning" ng-href="#/">Isi Penilaian Prestasi <span class="glyphicon glyphicon-edit"></span></button>
+				
+				<br></br>
+				<div class="progress">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+				  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+				    Proses Penilaian Prestasi 70%
+				  </div>
+				</div>
+
+			</td>
+	    </tr>
+	    -->
+	    <tr>
+	    </tr>
+	    <tr>
+	    	<td>
+			    <table id="table_kary" datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+			        <thead>
+			        <tr>
+			            <th>No Reg</th>
+			            <th>Nama</th>
+			            <th>Jabatan</th>
+			            <th>Departemen</th>
+			            <th>Divisi</th>
+			            <th>Lokasi</th>
+			            <th>Status</th>
+			            <th>Tanggal Masuk</th>
+			            <th>Action</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr ng-repeat="karyawan in showCase.karyawan">
+			            <td>{{ karyawan.nomor }}</td>
+			            <td>{{ karyawan.nama }}</td>
+			            <td>{{ karyawan.jabatan }}</td>
+			            <td>{{ karyawan.departemen }}</td>
+			            <td>{{ karyawan.divisi }}</td>
+			            <td>{{ karyawan.lokasi }}</td>
+			            <td>{{ karyawan.status_karyawan }}</td>
+			            <td>{{ karyawan.tgl_masuk }}</td>
+			            <td>
+			            	<div class="btn-group" role="group" aria-label="action">
+							  
+							    <button id="btnUbah" type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            	</button>
+							
+							 
+							    <button id="btnHapus" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            	</button>
+							  </div>
+							</div>
+			            </td>
+			        </tr>
+			        </tbody>
+			    </table>
+			</td>
+		</tr>
+	</table>
+</div>

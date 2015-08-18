@@ -1,0 +1,1533 @@
+<!--
+    <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="bower_components/bootstrap-fileinput/js/fileinput_locale_LANG.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap-fileinput/css/fileinput.min.css" />
+-->
+
+
+<style type="text/css">
+    /* Ensure that the demo table scrolls */
+    #showcase-fixedcolumns_wrapper th,
+    #showcase-fixedcolumns_wrappertd {
+        white-space: nowrap;
+    }
+    #showcase-fixedcolumns_wrapper.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+</style>
+
+<script type="text/javascript">
+    /*
+    $(function () {
+     $("#input-id").fileinput();
+     });
+    */
+</script>
+
+<div ng-controller="KaryawanTambahCtrl as showCase">
+
+<wizard on-finish="finishedWizard()" name="Tambah Karyawan" template="bower_components/angular-wizard/src/wizard.html"> 
+
+	<!-- ----------------------------------- Biodata --------------------------------- -->
+    <wz-step title="Biodata">
+        <hr>
+        <h2>BIODATA</h2>
+        <button disabled="true" type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+			<span class="glyphicon glyphicon-arrow-left"> </span> Balik
+	    </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut" wz-next value="Lanjut"> Lanjut
+	    	<span class="glyphicon glyphicon-arrow-right"></span>
+	    </button>
+        <hr>
+
+	    <div class="form-group">
+            <table class="table table-hover">
+	    		<tr>
+                    <td><label>Foto:</label></td>
+                    <td>
+                        <input id="input-id" type="file" class="file">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Nama:</label></td>
+                    <td><input type="text" class="form-control" id="inp_nama" ng-model="databaru.nama"></td>
+                </tr>
+                <tr>
+                    <td><label>No. KTP:</label></td>
+                    <td><input type="text" class="form-control" id="inp_noktp" ng-model="databaru.noktp"></td>
+                </tr>
+                <tr>
+                    <td><label>Jabatan:</label></td>
+                    <td><div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_jabatan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Jabatan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_jabatan">
+                            <li><a href="#">Programmer</a></li>
+                            <li><a href="#">Sistem Analist</a></li>
+                            <li><a href="#">DBA</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Alamat:</label></td>
+                    <td><textarea class="form-control" rows="5" id="inp_alamat" ng-model="databaru.alamat"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label>Email:</label></td>
+                    <td><input type="text" class="form-control" id="inp_email" ng-model="databaru.email"></td>
+                </tr>
+                <tr>
+                    <td><label>No Telepon:</label></td>
+                    <td><input type="text" class="form-control" id="inp_telepon" ng-model="databaru.telepon"></td>
+                </tr>
+                <tr>
+                    <td><label>Agama:</label></td>
+                    <td><div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_agama" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Agama
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_agama">
+                            <li><a href="#">Islam</a></li>
+                            <li><a href="#">Kristen</a></li>
+                            <li><a href="#">Hindu</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Jenis Kelamin:</label></td>
+                    <td><label class="radio-inline">
+                          <input type="radio" name="optradio">Laki - Laki
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio">Perempuan
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%"><label>Tanggal Lahir:</label></td>
+                    <td>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker({
+                                    format: 'L',
+                                    showTodayButton: true
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>
+	    	</table>
+	    </div>
+    </wz-step>
+
+    <!-- ----------------------------------- Tanda Pengenal --------------------------------- -->
+    <wz-step title="Tanda Pengenal">
+        <hr>
+        <h2>TANDA PENGENAL</h2>
+	    <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+			<span class="glyphicon glyphicon-arrow-left"> </span> Balik
+	    </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+	    	<span class="glyphicon glyphicon-arrow-right"></span>
+	    </button>
+        <hr>
+
+        <form class="form-inline" ng-submit="showCase.addPerson()">
+
+        <table datatable="" class="row-border hover"  dt-options="showCase.dtOptionsKtp" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            <tr>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                             <input type="text" class="form-control" name="jenis" ng-model="showCase.person2Add.jenis" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                            <input type="text" class="form-control" name="nomor" ng-model="showCase.person2Add.nomor" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                            <input type="text" class="form-control" name="berlaku" ng-model="showCase.person2Add.berlaku" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                            <input type="text" class="form-control" name="dikeluarkan" ng-model="showCase.person2Add.dikeluarkan" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                    </div>
+                </th>
+            </tr>
+	            <tr>
+	                <th>Jenis</th>
+	                <th>Nomor</th>
+	                <th>Masa Berlaku</th>
+	                <th>Dikeluarkan di Kota</th>
+	                <th>Action</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        	<tr ng-repeat="person in showCase.persons">
+		        	<td>{{ person.jenis }}</td>
+		        	<td>{{ person.nomor }}</td>
+		        	<td>{{ person.berlaku }}</td>
+		        	<td>{{ person.dikeluarkan }}</td>
+		        	<td>
+		            	<div class="btn-group" role="group" aria-label="action">
+						  
+						    <button id="btnUbah" type="button" ng-click="showCase.modifyPerson($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+	                        <span class="glyphicon glyphicon-edit"></span>
+	                    	</button>
+						
+						    <button id="btnHapus" type="button" ng-click="showCase.removePerson($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+	                        <span class="glyphicon glyphicon-trash"></span>
+	                    	</button>
+						  </div>
+						</div>
+		            </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    </form>
+    </wz-step>
+
+    <!-- ------------------------------------------ hobi ------------------------------------------- -->
+    <wz-step title="Hobi">
+        <hr>
+        <h2>HOBI</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+         <button type="button" class="btn btn-success btn-sm" id="btnLanjut" wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <form class="form-inline" ng-submit="showCase.addHobi()">
+        <table datatable="" class="row-border hover"  dt-options="showCase.dtOptionsHobi" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            <tr>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                             <input type="text" class="form-control" name="jenis" ng-model="showCase.hobi2Add.jenis" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                            <input type="text" class="form-control" name="frekuensi" ng-model="showCase.hobi2Add.frekuensi" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                    </div>
+                </th>
+            </tr>
+                <tr>
+                    <th>Jenis Hobi</th>
+                    <th>Frekuensi Melakukan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="hobi in showCase.hobi">
+                    <td>{{ hobi.jenis }}</td>
+                    <td>{{ hobi.frekuensi }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyHobi($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removeHobi($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </wz-step>
+
+    <!-- ------------------------------------------ penyakit ------------------------------------------- -->
+    <wz-step title="Penyakit">
+        <hr>
+        <h2>RIWAYAT PENYAKIT</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+			<span class="glyphicon glyphicon-arrow-left"> </span> Balik
+	    </button>
+         <button type="button" class="btn btn-success btn-sm" id="btnLanjut" wz-next value="Lanjut"> Lanjut
+	    	<span class="glyphicon glyphicon-arrow-right"></span>
+	    </button>
+        <hr>
+
+        <form class="form-inline" ng-submit="showCase.addHobi()">
+        <table datatable="" class="row-border hover"  dt-options="showCase.dtOptionsHobi" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            <tr>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                             <input type="text" class="form-control" name="jenis" ng-model="showCase.hobi2Add.jenis" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <label>
+                            <input type="text" class="form-control" name="frekuensi" ng-model="showCase.hobi2Add.frekuensi" value="">
+                        </label>
+                    </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                    <div class="col-xs-1">
+                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                    </div>
+                </th>
+            </tr>
+                <tr>
+                    <th>Jenis Penyakit</th>
+                    <th>Frekuensi Kambuh</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="hobi in showCase.hobi">
+                    <td>{{ hobi.jenis }}</td>
+                    <td>{{ hobi.frekuensi }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyHobi($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removeHobi($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </wz-step>
+
+    <!-- ----------------------------------- Pendidikan Formal --------------------------------- -->
+    <wz-step title="Pendidikan">
+
+    <!-- ----------------------------------- Modal Tambah -------------------------------------- -->
+    <div class="modal fade" id="modalTambahPF" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Pendidikan Formal</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Tingkat Sekolah</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_sekolah" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Sekolah
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_agama">
+                            <li><a>S1</a></li>
+                            <li><a>SMA</a></li>
+                            <li><a>SMP</a></li>
+                            <li><a>SD</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Sekolah</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kota</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_kota_sekolah" ng-model="databaru.kota_sekolah">
+                    </td>
+                </tr>    
+                <tr>
+                    <td>Tahun Lulus</td>
+                   <td>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepickerlulus'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                             $(function () {
+                                $('#datetimepickerlulus').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'YYYY',
+                                    showTodayButton: true
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>    
+                    <td>Fakultas / Jurusan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_fakultas_sekolah" ng-model="databaru.fakultas_sekolah">
+                    </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- ----------------------------------------------- eof Modal Tambah ----------------------------------------------- -->
+
+    <!-- ----------- Modal Tambah Pendidikan Non Formal---------- -->
+    <div class="modal fade" id="modalTambahPN" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Pendidikan Non Formal</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Jenis Pendidikan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Lembaga</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kota</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_kota_sekolah" ng-model="databaru.kota_sekolah">
+                    </td>
+                </tr>    
+                <tr>
+                    <td>Tahun</td>
+                    <td>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepickertahun'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                             $(function () {
+                                $('#datetimepickertahun').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'YYYY',
+                                    showTodayButton: true
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>    
+                    <td>Bersertifikat</td>
+                    <td><label class="radio-inline">
+                          <input type="radio" name="optradio">Ya
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio">tidak
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- ----------------------------------------------- eof Modal Tambah ----------------------------------------------- -->
+
+        <hr>
+        <h2>PENDIDIKAN</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    <h3>Pendidikan Formal</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahPF" class="btn btn-primary btn-sm" id="btnTambahPF">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div>
+        </div>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Tingkat</th>
+                    <th>Nama Sekolah</th>
+                    <th>Kota</th>
+                    <th>Tahun Lulus</th>
+                    <th>Fakultas / Jurusan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.tahun_lulus }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <table width="85%">
+            <tr>
+                <td>
+                    <h3>Pendidikan Non Formal (Kursus dll)</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahPN" class="btn btn-primary btn-sm" id="btnTambahPN">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Jenis Pendidikan</th>
+                    <th>Nama Lembaga</th>
+                    <th>Kota</th>
+                    <th>Tahun</th>
+                    <th>Bersertifikat</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.tahun_lulus }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wz-step>
+
+    <!-- ---------------------------------------- Pengalaman ------------------------------------------ -->
+    <wz-step title="Pengalaman">
+
+    <!-- --------- Modal Tambah Pengalaman Kerja ------- -->
+    <div class="modal fade" id="modalTambahPengalamanKerja" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Pengalaman Kerja</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Nama Perusahaan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_perusahaan" ng-model="databaru.nama_perusahaan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_jabatan" ng-model="databaru.jabatan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Masa jabatan</td>
+                    <td>
+                        <div class='col-sm-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepickerjabatan1'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='col-sm-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepickerjabatan2'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepickerjabatan1').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY',
+                                    showTodayButton: true
+                                });
+                                $('#datetimepickerjabatan2').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY',
+                                    showTodayButton: true
+                                });
+                                $("#datetimepickerjabatan1").on("dp.change", function (e) {
+                                    $('#datetimepickerjabatan2').data("DateTimePicker").minDate(e.date);
+                                });
+                                $("#datetimepickerjabatan2").on("dp.change", function (e) {
+                                    $('#datetimepickerjabatan1').data("DateTimePicker").maxDate(e.date);
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gaji Terakhir</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_gaji" ng-model="databaru.gaji">
+                        <script type="text/javascript">
+                            $('#inp_gaji').keypress(function(e) {
+                            var a = [];
+                            var k = e.which;
+                        
+                            for (i = 48; i < 58; i++)
+                                a.push(i);
+                        
+                            if (!($.inArray(k,a)>=0))
+                                e.preventDefault();
+                            });
+                        </script>
+                    </td>
+                   
+                </tr>    
+                <tr>
+                    <td>Alasan Berhenti</td>
+                    <td>
+                       <textarea class="form-control" rows="5" id="alasan"></textarea>
+                    </td>
+                </tr>    
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- --------- eof Modal Tambah Pengalaman Kerja ----------- -->
+
+     <!-- --------- Modal Tambah Pengalaman Organisasi ------- -->
+    <div class="modal fade" id="modalTambahPengalamanOrganisasi" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Pengalaman Organisasi</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Jenis Organisasi</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Organisasi</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>jabatan</td>
+                    <td>
+                       <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>    
+                <tr>
+                    <td>Masa jabatan</td>
+                    <td>
+                        <div class='col-sm-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepickerjabatan3'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='col-sm-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepickerjabatan4'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepickerjabatan3').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY',
+                                    showTodayButton: true
+                                });
+                                $('#datetimepickerjabatan4').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY',
+                                    showTodayButton: true
+                                });
+                                $("#datetimepickerjabatan3").on("dp.change", function (e) {
+                                    $('#datetimepickerjabatan4').data("DateTimePicker").minDate(e.date);
+                                });
+                                $("#datetimepickerjabatan4").on("dp.change", function (e) {
+                                    $('#datetimepickerjabatan3').data("DateTimePicker").maxDate(e.date);
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>    
+                
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- --------- eof Modal Tambah Pengalaman Kerja ----------- -->
+
+        <hr>
+        <h2>PENGALAMAN</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    <h3>Pengalaman Kerja</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahPengalamanKerja" class="btn btn-primary btn-sm" id="btnTambahPengalamanKerja">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+        
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Nama Perusahaan</th>
+                    <th>Jabatan</th>
+                    <th>Masa Jabatan</th>
+                    <th>Gaji Terakhir</th>
+                    <th>Alasan Berhenti</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.tahun_lulus }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <table width="85%">
+            <tr>
+                <td>
+                     <h3>Pengalaman Organisasi</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahPengalamanOrganisasi" class="btn btn-primary btn-sm" id="btnTambahPengalamanKerja">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+      
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Jenis Organisasi</th>
+                    <th>Nama Organisasi</th>
+                    <th>Jabatan</th>
+                    <th>Masa Jabatan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wz-step>
+
+    <!-- ---------------------------------------- Keterampilan ------------------------------------------ -->
+    <wz-step title="Keterampilan">
+
+    <!-- --------- Modal Tambah Keterampilan Mesin ------- -->
+    <div class="modal fade" id="modalTambahKeterampilanMesin" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Keterampilan Mengoperasikan Mesin</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Nama Alat / Mesin</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kemampuan</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_skill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Kemampuan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_skill">
+                            <li><a>Baik</a></li>
+                            <li><a>Cukup</a></li>
+                            <li><a>Kurang</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>   
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- --------- eof Modal Keterampilan Mesin----------- -->
+
+     <!-- --------- Modal Tambah Keterampilan Bahasa ------- -->
+    <div class="modal fade" id="modalTambahKeterampilanBahasa" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Keterampilan Bahasa</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Bahasa</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>membaca</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_baca" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Kemampuan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_baca">
+                            <li><a>Baik</a></li>
+                            <li><a>Cukup</a></li>
+                            <li><a>Kurang</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Menulis</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_tulis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Kemampuan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_tulis">
+                            <li><a>Baik</a></li>
+                            <li><a>Cukup</a></li>
+                            <li><a>Kurang</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>    
+                <tr>
+                    <td>Berbicara</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_bicara" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Kemampuan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_bicara">
+                            <li><a>Baik</a></li>
+                            <li><a>Cukup</a></li>
+                            <li><a>Kurang</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>    
+                
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- --------- eof Modal Tambah Pengalaman Kerja ----------- -->
+
+        <hr>
+        <h2>KETERAMPILAN</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    <h3>Keterampilan Mengoperasikan Alat / Mesin</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahKeterampilanMesin" class="btn btn-primary btn-sm" id="btnTambahKeterampilanMesin">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Nama Alat / Mesin</th>
+                    <th>Skill</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    <h3>Keterampilan Bahasa</h3>
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahKeterampilanBahasa" class="btn btn-primary btn-sm" id="btnTambahKeterampilanBahasa">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Bahasa</th>
+                    <th>Membaca</th>
+                    <th>Menulis</th>
+                    <th>Berbicara</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wz-step>
+
+    <!-- ----------------------------------- Keluarga --------------------------------- -->
+    <wz-step title="Keluarga">
+
+    <!-- ----------------------------------- Modal Tambah -------------------------------------- -->
+    <div class="modal fade" id="modalTambahKeluarga" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Susunan Keluarga</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Hubungan</td>
+                    <td>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="drop_hub_kel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Pilih Hubungan
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="drop_hub_kel">
+                            <li><a>Ayah</a></li>
+                            <li><a>Ibu</a></li>
+                            <li><a>Kakak</a></li>
+                            <li><a>Adik</a></li>
+                            <li><a>Suami</a></li>
+                            <li><a>Istri</a></li>
+                            <li><a>Anak</a></li>
+                          </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nama Lengkap</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_nama_sekolah" ng-model="databaru.nama_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tanggal Lahir</td>
+                   <td>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepickerlahir'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                             $(function () {
+                                $('#datetimepickerlahir').datetimepicker({
+                                    viewMode: 'days',
+                                    format: 'DD-MM-YYYY',
+                                    showTodayButton: true
+                                });
+                            });
+                        </script>
+                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pendidikan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_kota_sekolah" ng-model="databaru.kota_sekolah">
+                    </td>
+                </tr>    
+                <tr>    
+                    <td>Pekerjaan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_fakultas_sekolah" ng-model="databaru.fakultas_sekolah">
+                    </td>
+                </tr>
+                <tr>    
+                    <td>Keterangan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_fakultas_sekolah" ng-model="databaru.fakultas_sekolah">
+                    </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- ----------------------------------------------- eof Modal Tambah ----------------------------------------------- -->
+
+        <hr>
+        <h2>SUSUNAN KELUARGA</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahKeluarga" class="btn btn-primary btn-sm" id="btnTambahPF">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div>
+        </div>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Hubungan</th>
+                    <th>Nama Lengkap</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Pendidikan Terakhir</th>
+                    <th>Pekerjaan</th>
+                    <th>Keterangan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.tahun_lulus }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>{{ pendidikan.jurusan }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wz-step>
+
+    <!-- ----------------------------------- Orang Dikenal --------------------------------- -->
+    <wz-step title="Orang Dikenal">
+
+    <!-- ----------------------------------- Modal Tambah -------------------------------------- -->
+    <div class="modal fade" id="modalTambahDikenal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Orang yang Dikenal</h4>
+        </div>
+         
+        <div class="modal-body">
+            <div class="form-group">
+            <table class="table table-hover">
+                <tr>
+                    <td>Nama</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_kota_sekolah" ng-model="databaru.kota_sekolah">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>
+                        <textarea class="form-control" rows="5" id="alasan"></textarea>              
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pekerjaan / Jabatan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_kota_sekolah" ng-model="databaru.kota_sekolah">
+                    </td>
+                </tr>    
+                <tr>    
+                    <td>Sifat Hubungan</td>
+                    <td>
+                        <input type="text" class="form-control" id="inp_fakultas_sekolah" ng-model="databaru.fakultas_sekolah">
+                    </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary" id="btnSimpan" ng-click="tambahData()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Simpan
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                <span class="glyphicon glyphicon-ban-circle"></span> Batal
+            </button>
+        </div>
+        </div>
+      </div>  
+    </div>
+    
+    <!-- ----------------------------------------------- eof Modal Tambah ----------------------------------------------- -->
+
+        <hr>
+        <h2>ORANG YANG DIKENAL DI PERUSAHAAN INI</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+            <span class="glyphicon glyphicon-arrow-left"> </span> Balik
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="btnLanjut"  wz-next value="Lanjut"> Lanjut
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <hr>
+
+        <table width="85%">
+            <tr>
+                <td>
+                    
+                </td>
+                <td align="right">
+                    <button type="button" data-toggle="modal" data-target="#modalTambahDikenal" class="btn btn-primary btn-sm" id="btnTambahPF">
+                    <span class="glyphicon glyphicon-plus"></span> Tambah
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div>
+        </div>
+
+        <table id="showcase-fixedcolumns" datatable="" class="row-border hover"  dt-options="showCase.dtOptionsPendidikan" dt-column-defs="showCase.dtColumnDefs">
+            <thead>
+            </tr>
+                <tr>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Pekerjaan / Jabatan</th>
+                    <th>Sifat hubungan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pendidikan in showCase.pendidikan">
+                    <td>{{ pendidikan.tingkat }}</td>
+                    <td>{{ pendidikan.nama }}</td>
+                    <td>{{ pendidikan.kota }}</td>
+                    <td>{{ pendidikan.tahun_lulus }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="action">
+                          
+                            <button id="btnUbah" type="button" ng-click="showCase.modifyPendidikan($index)" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        
+                            <button id="btnHapus" type="button" ng-click="showCase.removePendidikan($index)" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                          </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wz-step>
+
+    <wz-step title="Lain-Lain">
+        <h2>Lain-Lain</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="btnBalik"  wz-previous value="Balik"> 
+			<span class="glyphicon glyphicon-arrow-left"> </span> Balik
+	    </button>
+        <!--<input type="submit" wz-next value="Selesai" />-->
+        <button type="button" class="btn btn-primary btn-sm" id="btnSelesai" wz-finish value="Selesai"> Selesai
+	    	<span class="glyphicon glyphicon-ok"></span>
+	    </button>
+    </wz-step>
+</wizard>
+</div>

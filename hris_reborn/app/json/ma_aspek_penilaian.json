@@ -1,0 +1,18 @@
+[
+{
+"id_aspek_penilaian_pelaksana":1,
+"aspek_penilaian":"Kuantitas Pekerjaan"
+},
+{
+"id_aspek_penilaian_pelaksana":2,
+"aspek_penilaian":"Kualitas Pekerjaan"
+},
+{
+"id_aspek_penilaian_pelaksana":3,
+"aspek_penilaian":"Absensi & Ketepatan Hadir"
+},
+{
+"id_aspek_penilaian_pelaksana":4,
+"aspek_penilaian":"Disiplin"
+}
+]

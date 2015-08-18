@@ -1,0 +1,15 @@
+<div class="row">
+<h2>Presensi</h2>
+</div>
+<div ng-controller="PresensiPresensiCtrl as showCase">
+	<div class="row">
+		<span style=“font-weight: bold;”>Periode Penggajian </span>
+		<select ng-model="selectedbulanPresensi" ng-options="c as c.periode for c in bulanPresensi"></select>
+	</div>
+	<div class="row">
+	<hr></hr>
+</div>
+	<div class="row">
+		<table datatable="" dt-options="showCase.dtOptions1" dt-columns="showCase.dtColumns1" class="table-striped row-border hover"></table>
+	</div>
+</div>

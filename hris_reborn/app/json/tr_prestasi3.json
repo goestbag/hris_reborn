@@ -1,0 +1,57 @@
+[
+{
+"id_tr_prestasi_pelaksana":47512,
+"id_karyawan":1666,
+"id_periode_penilaian_pelaksana":16,
+"periode":"April 2015",
+"nomor":"DK162",
+"nama":"Bambang Sutrisno",
+"jabatan":"Opt. Stenter Group A",
+"departemen":"Finishing Pandaan",
+"tgl_penilaian":"2015\/4\/27"
+},
+{
+"id_tr_prestasi_pelaksana":46523,
+"id_karyawan":718,
+"id_periode_penilaian_pelaksana":16,
+"periode":"April 2015",
+"nomor":"D1578",
+"nama":"Siti Kholimah",
+"jabatan":"Opt. Inspector",
+"departemen":"Weaving AJL Pandaan",
+"tgl_penilaian":"2015\/4\/24"
+},
+{
+"id_tr_prestasi_pelaksana":45893,
+"id_karyawan":427,
+"id_periode_penilaian_pelaksana":16,
+"periode":"April 2015",
+"nomor":"D1390",
+"nama":"Agus Reny Rahayu",
+"jabatan":"Opt. Rewinding Murata & Stallam Group C",
+"departemen":"Yarn Dyeing Pandaan",
+"tgl_penilaian":"2015\/4\/24"
+},
+{
+"id_tr_prestasi_pelaksana":46391,
+"id_karyawan":5326,
+"id_periode_penilaian_pelaksana":16,
+"periode":"April 2015",
+"nomor":"DK718",
+"nama":"Suryani",
+"jabatan":"Opt. Cucuk  Weaving AJL",
+"departemen":"Weaving AJL Pandaan",
+"tgl_penilaian":"2015\/4\/27"
+},
+{
+"id_tr_prestasi_pelaksana":46459,
+"id_karyawan":5202,
+"id_periode_penilaian_pelaksana":16,
+"periode":"April 2015",
+"nomor":"DK678",
+"nama":"Eni Nurfiana",
+"jabatan":"Opt. Weaving AJL A",
+"departemen":"Weaving AJL Pandaan",
+"tgl_penilaian":"2015\/4\/27"
+}
+]
